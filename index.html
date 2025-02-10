@@ -13,6 +13,8 @@
             height: 100vh;
             margin: 0;
             background-color: #f4f4f9;
+            position: relative;
+            overflow: hidden; /* Prevent scrollbars from appearing */
         }
 
         .container {
@@ -58,6 +60,8 @@
         .no-button {
             background-color: #f44336;
             color: white;
+            position: absolute; /* Allow for moving around */
+            transition: top 0.2s, left 0.2s; /* Smooth transition for movement */
         }
 
         .no-button:hover {
@@ -78,14 +82,18 @@
         <h1>Hey Love!</h1>
         <p>Would you choose to be mine forever?</p>
         <div class="button-container">
-            <button class="button yes-button" onclick="handleResponse('Yes')">Yes</button>
-            <button class="button no-button" onclick="handleResponse('No')">No</button>
+            <button class="button yes-button" onclick="handleResponse('Yes', this)">Yes</button>
+            <button class="button no-button" id="noButton" onmousemove="moveNoButton(event)">No</button>
         </div>
         <div class="response" id="response"></div>
     </div>
 
     <script>
         function handleResponse(answer) {
+            // Disable both buttons after one is clicked
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(btn => btn.disabled = true);
+
             const responseElement = document.getElementById('response');
             if (answer === 'Yes') {
                 responseElement.innerHTML = 'Yay! I am so happy! 💖';
@@ -93,6 +101,31 @@
             } else {
                 responseElement.innerHTML = 'Oh no, it\'s okay. I will still love you forever! ❤️';
                 responseElement.style.color = '#f44336';
+            }
+        }
+
+        function moveNoButton(event) {
+            const noButton = document.getElementById('noButton');
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            
+            const buttonRect = noButton.getBoundingClientRect(); // Get button's current position
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            // Check if the mouse is near the button
+            const distance = Math.sqrt(Math.pow(mouseX - buttonCenterX, 2) + Math.pow(mouseY - buttonCenterY, 2));
+
+            // If the cursor is within 150px distance of the button, move the button
+            if (distance < 150) {
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+
+                noButton.style.left = randomX + 'px';
+                noButton.style.top = randomY + 'px';
             }
         }
     </script>
