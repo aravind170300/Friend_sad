@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Choose?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        .button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .yes-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .yes-button:hover {
+            background-color: #45a049;
+        }
+
+        .no-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .no-button:hover {
+            background-color: #e53935;
+        }
+
+        .response {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hey Love!</h1>
+        <p>Would you choose to be mine forever?</p>
+        <div class="button-container">
+            <button class="button yes-button" onclick="handleResponse('Yes')">Yes</button>
+            <button class="button no-button" onclick="handleResponse('No')">No</button>
+        </div>
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        function handleResponse(answer) {
+            const responseElement = document.getElementById('response');
+            if (answer === 'Yes') {
+                responseElement.innerHTML = 'Yay! I am so happy! 💖';
+                responseElement.style.color = '#4CAF50';
+            } else {
+                responseElement.innerHTML = 'Oh no, it\'s okay. I will still love you forever! ❤️';
+                responseElement.style.color = '#f44336';
+            }
+        }
+    </script>
+
+</body>
+</html>
